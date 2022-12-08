@@ -2,6 +2,8 @@ import './Note.css'
 import { Link } from 'react-router-dom'
 
 const Note = ({ note }) => {
+
+
     return (
         <div className='Note'>
             <h2 >{note.title}</h2>

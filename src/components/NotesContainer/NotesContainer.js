@@ -34,7 +34,7 @@ const NotesContainer = () => {
     return(
         <div>
            <h1>Notas</h1>
-           <NotesList notes={notes}/>
+           <NotesList notes={notes} />
         </div>
     )
 }

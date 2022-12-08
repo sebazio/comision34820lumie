@@ -5,7 +5,7 @@ const NotesList = ({ notes }) => {
         <div style={{ display: 'flex' }}>
             { 
                 notes.map(note => (
-                    <Note key={note.id} note={note}/>
+                    <Note key={note.id} note={note} />
                 )) 
             } 
         </div>
