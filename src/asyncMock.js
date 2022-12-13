@@ -59,7 +59,7 @@ export const getNotes = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(notes)
-      }, 500)
+      }, 1500)
     })
 }
 
