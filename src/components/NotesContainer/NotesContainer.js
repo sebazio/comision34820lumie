@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import NotesList from '../NotesList/NotesList'
-import { getNotes, getNotesByCategory } from '../../asyncMock'
 import { useParams } from 'react-router-dom'
+import { getDocs, collection, query, where } from 'firebase/firestore'
+import { db } from '../../services/firebase/firebaseConfig'
 
 const NotesContainer = () => {
     const [notes, setNotes] = useState([])
@@ -9,33 +10,30 @@ const NotesContainer = () => {
     const [title, setTitle] = useState('Notes')
 
     const { categoryId } = useParams()
-    console.log(categoryId)
 
     useEffect(() => {
       setLoading(true)
-      if(!categoryId) {
-        getNotes()
+
+      const collectionRef = categoryId 
+        ? query(collection(db, 'notes'), where('category', '==', categoryId))
+        : collection(db, 'notes')
+
+      getDocs(collectionRef)
         .then(response => {
-          setNotes(response)
+          const notesAdapted = response.docs.map(doc => {
+            const data = doc.data()
+
+            return { id: doc.id, ...data}
+          })
+
+          setNotes(notesAdapted)
         })
         .catch(error => {
           console.log(error)
         })
         .finally(() => {
           setLoading(false)
-        })  
-      } else {
-        getNotesByCategory(categoryId)
-          .then(response => {
-            setNotes(response)
-          })
-          .catch(error => {
-            console.log(error)
-          })  
-          .finally(() => {
-            setLoading(false)
-          })  
-      }
+        })
       
     }, [categoryId])
 

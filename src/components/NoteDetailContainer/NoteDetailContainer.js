@@ -1,8 +1,11 @@
 import { useState, useEffect, useContext } from 'react'
-import { getNoteById } from '../../asyncMock'
+
 import { useParams } from 'react-router-dom'
 import { BookmarksContext } from '../../context/BookmarksContext'
 import { NotificationContext } from '../../context/NotificationContext'
+
+import { getDoc, doc } from 'firebase/firestore'
+import { db } from '../../services/firebase/firebaseConfig'
 
 const NoteDetailContainer = () => {
     const [note, setNote] = useState({})
@@ -14,16 +17,22 @@ const NoteDetailContainer = () => {
     const { noteId } = useParams()
 
     useEffect(() => {
-        getNoteById(noteId)
-            .then(response => {
-                setNote(response)
+        const docRef = doc(db, 'notes', noteId)
+
+        getDoc(docRef)
+            .then(doc => {
+                const data = doc.data()
+                const noteAdapted = { id: doc.id, ...data}
+
+                setNote(noteAdapted)
             })
             .catch(error => {
-                console.error(error)
-            })
+                console.log(error)
+            })        
             .finally(() => {
                 setIsLoading(false)
             })
+
     }, [noteId])
 
     if(isLoading) {
