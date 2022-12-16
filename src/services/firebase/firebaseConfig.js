@@ -1,14 +1,15 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore"
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAab_VDig4wc7Gt1ha2PN8PL__yrqvD7cU",
-  authDomain: "notes34820.firebaseapp.com",
-  projectId: "notes34820",
-  storageBucket: "notes34820.appspot.com",
-  messagingSenderId: "1092749598713",
-  appId: "1:1092749598713:web:48bcde4a017ef0adaca728"
+  apiKey: "AIzaSyAXB0zlMSy-u0hqFTE2hOwxjnM6bu3t3fE",
+  authDomain: "ecommerce34820.firebaseapp.com",
+  projectId: "ecommerce34820",
+  storageBucket: "ecommerce34820.appspot.com",
+  messagingSenderId: "298321127678",
+  appId: "1:298321127678:web:33ee27c42351a40e6e5daf"
 };
+
 
 const app = initializeApp(firebaseConfig);
 

@@ -1,38 +1,28 @@
 import './App.css';
-import NotesContainer from './components/NotesContainer/NotesContainer';
-import NoteDetailContainer from './components/NoteDetailContainer/NoteDetailContainer';
-import Navbar from './components/Navbar/Navbar'
+import { CartProvider } from './context/CartContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Bookmarks from './components/Bookmarks/Bookmarks';
-import { BookmarksProvider } from './context/BookmarksContext';
-import Login from './components/Login/Login'
-import { AuthProvider } from './context/AuthContext';
-import { useState, createContext } from 'react';
-import { NotificationProvidar } from './context/NotificationContext';
-
+import ItemListContainer from './components/ItemListContainer/ItemListContainer';
+import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
+import Navbar from './components/Navbar/Navbar';
+import Cart from './components/Cart/Cart';
 
 
 
 function App() {
-  
+
   return (
     <div className="App">
-      <NotificationProvidar>
-        <AuthProvider>
-          <BookmarksProvider>
-            <BrowserRouter>
-              <Navbar />
-              <Routes>
-                <Route path='/' element={<NotesContainer />}/>
-                <Route path='/category/:categoryId' element={<NotesContainer />}/>
-                <Route path='/note/:noteId' element={<NoteDetailContainer /> } />
-                <Route path='/bookmarks' element={<Bookmarks /> } />
-                <Route path='/login' element={<Login /> } />
-              </Routes>
-            </BrowserRouter>
-          </BookmarksProvider>
-        </AuthProvider>
-      </NotificationProvidar>
+      <CartProvider>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<ItemListContainer />} />
+            <Route path='/category/:categoryId' element={<ItemListContainer />} />
+            <Route path='/detail/:productId' element={<ItemDetailContainer />}/>
+            <Route path='/cart' element={<Cart />}/>
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
     </div>
   );
 }
